@@ -30,13 +30,26 @@ RSpec.describe 'the movies show' do
     expect(page).to have_content(@actor_2.age)
     expect(page).to have_content(@actor_3.age)
     save_and_open_page
-
   end
 
   it 'shows the average actors age in the movie ' do
     visit "/movies/#{@movie_1.id}"
     expect(page).to have_content(@movie_1.average_actor_age)
+  end
 
+  it 'does not show actors not associated to the movie' do
+    visit "/movies/#{@movie_1.id}"
+
+    expect(page).to have_no_content(@actor_1.name)
+  end
+
+  it 'can search and add an actor to a movie' do
+    visit "/movies/#{@movie_1.id}"
+
+    fill_in(:name, with: 'Adam Sandler')
+    click_button('Add Actor')
+
+    expect(page).to have_content(@actor_1.name)
   end
 
 end

@@ -24,7 +24,6 @@ RSpec.describe 'the studios index' do
 
   it 'shows each movie title associated with each studio' do
     visit "/studios"
-    save_and_open_page
     expect(page).to have_content(@movie_1.title)
     expect(page).to have_content(@movie_2.title)
     expect(page).to have_content(@movie_3.title)
